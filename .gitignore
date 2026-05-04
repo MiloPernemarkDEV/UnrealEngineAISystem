@@ -1,10 +1,10 @@
 # Unreal build output
-[UnrealAISystem]/Binaries/
-[UnrealAISystem]/Build/
-[UnrealAISystem]/Intermediate/
-[UnrealAISystem]/Saved/
-[UnrealAISystem]/DerivedDataCache/
-[UnrealAISystem]/FileOpenOrder/
+UnrealAISystem/Binaries/
+UnrealAISystem/Build/
+UnrealAISystem/Intermediate/
+UnrealAISystem/Saved/
+UnrealAISystem/DerivedDataCache/
+UnrealAISystem/FileOpenOrder/
 
 # Visual Studio
 .vs/
@@ -16,6 +16,6 @@
 *.exp
 *.lib
 
-# Exclude packaged builds
+# Unreal packaged builds
 *.pak
 *.sig
