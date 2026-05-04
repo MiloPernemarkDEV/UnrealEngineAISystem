@@ -20,7 +20,7 @@ struct UNREALAISYSTEM_API FTaggedBehaviorTree
 	UBehaviorTree* BehaviorTree = nullptr; 
 };
 
-UCLASS()
+UCLASS(BlueprintType)
 class UNREALAISYSTEM_API UDaAIConfig : public UDataAsset
 {
 	GENERATED_BODY()
@@ -32,7 +32,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "StateLogic")
 	TArray<FTaggedBehaviorTree> DynamicBehaviors;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI Perception")
+	UPROPERTY(EditAnywhere, Instanced, BlueprintReadOnly, Category = "AI Perception")
 	TArray<TObjectPtr<UAISenseConfig>> SenseConfigs;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI Perception")

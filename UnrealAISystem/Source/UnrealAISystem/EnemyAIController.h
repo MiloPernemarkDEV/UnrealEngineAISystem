@@ -24,6 +24,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	TObjectPtr<UAIPerceptionComponent> AIPerceptionComponent;
 	
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UBlackboardData> BlackboardAsset;
+	
 	UFUNCTION(BlueprintCallable, Category = "Team")
 	ETeamAttitude::Type GetTeamAttitudeRelationship(const AActor* other) const;
 	

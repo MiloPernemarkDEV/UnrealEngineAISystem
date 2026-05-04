@@ -5,6 +5,7 @@
 #include "EnemyBase.h"
 #include "Perception/AIPerceptionComponent.h"
 #include "Perception/AISenseConfig.h"
+#include "BehaviorTree/BlackboardComponent.h"
 #include "Engine/World.h"
 
 AEnemyAIController::AEnemyAIController () {
@@ -15,12 +16,18 @@ AEnemyAIController::AEnemyAIController () {
 void AEnemyAIController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
-	
+
 	if (auto* EnemyBase = Cast<AEnemyBase>(InPawn))
 	{
 		SetGenericTeamId(EnemyBase->GetGenericTeamId());
-		BehaviorTreesSetup(EnemyBase->AIConfigData);
-		AIPerceptionSetup(EnemyBase->AIConfigData);
+
+		// Only run the tree if it's not already running
+		if (EnemyBase->AIConfigData && !GetBrainComponent()) 
+		{
+			UBlackboardComponent* BB = nullptr;
+			UseBlackboard(BlackboardAsset, BB);
+			RunBehaviorTree(EnemyBase->AIConfigData->BaseBehavior);
+		}
 	}
 }
 
@@ -53,7 +60,10 @@ ETeamAttitude::Type AEnemyAIController::GetTeamAttitudeRelationship(const AActor
 
 void AEnemyAIController::BehaviorTreesSetup(const UDaAIConfig* AIData)
 {
-	if (!IsValid(AIData) && !IsValid(AIData->BaseBehavior)) return;
+	if (!IsValid(AIData) || !IsValid(AIData->BaseBehavior))
+	{
+		return;
+	}
 	
 	RunBehaviorTree(AIData->BaseBehavior);
 	
